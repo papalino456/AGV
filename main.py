@@ -38,9 +38,9 @@ class Motor:
 
 
 motorFL = Motor(pca, 15, 14, 13)
-motorFR = Motor(pca, 9, 8, 7)
+motorFR = Motor(pca, 9, 7, 8)
 motorBL = Motor(pca, 10, 11, 12)
-motorBR = Motor(pca, 4, 5, 6)
+motorBR = Motor(pca, 4, 6, 5)
 
 motorFL.drive(1,100)
 motorFR.drive(1,100)
