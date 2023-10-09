@@ -38,10 +38,28 @@ class Motor:
         self.in1.duty_cycle = 0
         self.in2.duty_cycle = 0
 
+motorFL = Motor(pca, 15, 14, 13)
+motorFR = Motor(pca, 9, 7, 8)
+motorBL = Motor(pca, 10, 11, 12)
+motorBR = Motor(pca, 4, 6, 5)
+
 IRsensor = digitalio.DigitalInOut(board.D26)
 IRsensor.direction = digitalio.Direction.INPUT
+IRsensor.pull = digitalio.Pull.DOWN
 while True:
-    print(IRsensor.value)
+    if IRsensor.value:  # If line is detected
+        # Move slightly to the right
+        motorFL.drive(1, 50)
+        motorFR.drive(1, 40)  # Slow down right motors to turn right
+        motorBL.drive(1, 50)
+        motorBR.drive(1, 40)  # Slow down right motors to turn right
+    else:  # If line is not detected
+        # Move slightly to the left
+        motorFL.drive(1, 40)  # Slow down left motors to turn left
+        motorFR.drive(1, 50)
+        motorBL.drive(1, 40)  # Slow down left motors to turn left
+        motorBR.drive(1, 50)
+    time.sleep(0.1)  # Delay to allow motors to respond
 
 
 
