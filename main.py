@@ -48,13 +48,13 @@ IRsensor.direction = digitalio.Direction.INPUT
 IRsensor.pull = digitalio.Pull.UP
 while True:
     val = IRsensor.value
-    if val:  # If line is detected
+    if not val:  # If line is detected
         # Move slightly to the right
         motorFL.drive(1, 0)
         motorFR.drive(1, 25)  # Slow down right motors to turn right
         motorBL.drive(1, 0)
         motorBR.drive(1, 25)  # Slow down right motors to turn right
-    elif not val:  # If line is not detected
+    elif val:  # If line is not detected
         # Move slightly to the left
         motorFL.drive(1, 25)  # Slow down left motors to turn left
         motorFR.drive(2, 25)
