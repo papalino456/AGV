@@ -3,9 +3,11 @@ Line follower robot using pca9685, raspberry pi zero W, 2x L298N H-bridge and 4 
 """
 
 from adafruit_pca9685 import PCA9685
-from board import SCL, SDA
+from board import SCL, SDA 
+import board
 import busio
 import time
+import digitalio
 i2c_bus = busio.I2C(SCL, SDA)
 
 # Create a simple PCA9685 class instance.
@@ -36,41 +38,11 @@ class Motor:
         self.in1.duty_cycle = 0
         self.in2.duty_cycle = 0
 
+IRsensor = digitalio.DigitalInOut(board.D26)
+IRsensor.direction = digitalio.Direction.INPUT
+while True:
+    print(IRsensor.value)
 
-motorFL = Motor(pca, 15, 14, 13)
-motorFR = Motor(pca, 9, 7, 8)
-motorBL = Motor(pca, 10, 11, 12)
-motorBR = Motor(pca, 4, 6, 5)
-
-motorFL.drive(1,100)
-motorFR.drive(1,100)
-motorBL.drive(1,100)
-motorBR.drive(1,100)
-time.sleep(2)
-motorFL.drive(1,20)
-motorFR.drive(1,20)
-motorBL.drive(1,20)
-motorBR.drive(1,20)
-time.sleep(5)
-motorFL.stop()
-motorFR.stop()
-motorBL.stop()
-motorBR.stop()
-time.sleep(2)
-motorFL.drive(2,100)
-motorFR.drive(2,100)
-motorBL.drive(2,100)
-motorBR.drive(2,100)
-time.sleep(2)
-motorFL.drive(2,20)
-motorFR.drive(2,20)
-motorBL.drive(2,20)
-motorBR.drive(2,20)
-time.sleep(5)
-motorFL.stop()
-motorFR.stop()
-motorBL.stop()
-motorBR.stop()
 
 
 
