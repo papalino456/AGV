@@ -47,13 +47,13 @@ def process_controller():
         events = get_gamepad()
         for event in events:
             if event.code == 'ABS_Y':  # Left joystick Y-axis (forward/backward)
-                speed = event.state / 327 # Normalize to 0-100
+                speed = event.state / 330 # Normalize to 0-100
                 motorFL.drive(1 if speed >= 0 else 2, abs(speed))
                 motorFR.drive(1 if speed >= 0 else 2, abs(speed))
                 motorBL.drive(1 if speed >= 0 else 2, abs(speed))
                 motorBR.drive(1 if speed >= 0 else 2, abs(speed))
             elif event.code == 'ABS_X':  # Left joystick X-axis (left/right)
-                strafe_speed = event.state / 327  # Normalize to 0-100
+                strafe_speed = event.state / 330  # Normalize to 0-100
                 if strafe_speed >= 0:  # Strafe right
                     motorFL.drive(1, abs(strafe_speed))
                     motorBL.drive(2, abs(strafe_speed))
@@ -65,7 +65,7 @@ def process_controller():
                     motorFR.drive(1, abs(strafe_speed))
                     motorBR.drive(2, abs(strafe_speed))
             elif event.code == 'ABS_RX':  # Right joystick X-axis (turning)
-                turn_speed = event.state / 327  # Normalize to 0-100
+                turn_speed = event.state / 330  # Normalize to 0-100
                 if turn_speed >= 0:  # Turn right
                     motorFL.drive(1, abs(turn_speed))
                     motorBL.drive(1, abs(turn_speed))
