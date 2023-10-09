@@ -3,7 +3,7 @@ Line follower robot using pca9685, raspberry pi zero W, 2x L298N H-bridge and 4 
 """
 
 from adafruit_pca9685 import PCA9685
-from board import SCL, SDA 
+from board import SCL, SDA
 import board
 import busio
 import time
@@ -45,24 +45,38 @@ motorBR = Motor(pca, 4, 6, 5)
 
 IRsensor = digitalio.DigitalInOut(board.D26)
 IRsensor.direction = digitalio.Direction.INPUT
-IRsensor.pull = digitalio.Pull.DOWN
+IRsensor.pull = digitalio.Pull.UP
 while True:
-    if IRsensor.value:  # If line is detected
+    val = IRsensor.value
+    if val:  # If line is detected
         # Move slightly to the right
-        motorFL.drive(1, 50)
-        motorFR.drive(2, 40)  # Slow down right motors to turn right
-        motorBL.drive(1, 50)
-        motorBR.drive(2, 40)  # Slow down right motors to turn right
-    else:  # If line is not detected
+        motorFL.drive(1, 0)
+        motorFR.drive(1, 25)  # Slow down right motors to turn right
+        motorBL.drive(1, 0)
+        motorBR.drive(1, 25)  # Slow down right motors to turn right
+    elif not val:  # If line is not detected
         # Move slightly to the left
-        motorFL.drive(2, 40)  # Slow down left motors to turn left
-        motorFR.drive(1, 50)
-        motorBL.drive(2, 40)  # Slow down left motors to turn left
-        motorBR.drive(1, 50)
-    time.sleep(0.1)  # Delay to allow motors to respond
+        motorFL.drive(1, 25)  # Slow down left motors to turn left
+        motorFR.drive(2, 25)
+        motorBL.drive(1, 40)  # Slow down left motors to turn left
+        motorBR.drive(2, 25)
+        time.sleep(0.3)  # Delay to allow motors to respond
 
 
 
+
+
+"""
+# Set the PWM duty cycle for channel zero to 50%. duty_cycle is 16 bits>
+# but the PCA9685 will only actually give 12 bits of resolution.
+# Increase brightness:
+for i in range(0xffff):
+    pca.channels[4].duty_cycle = i
+
+# Decrease brightness:
+for i in range(0xffff, 0, -1):
+    pca.channels[4].duty_cycle = i
+    """
 
 
 """
