@@ -60,7 +60,7 @@ while True:
         motorFR.drive(2, 25)
         motorBL.drive(1, 40)  # Slow down left motors to turn left
         motorBR.drive(2, 25)
-        time.sleep(0.3)  # Delay to allow motors to respond
+        time.sleep(0.1)  # Delay to allow motors to respond
 
 
 
