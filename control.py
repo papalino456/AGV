@@ -46,24 +46,24 @@ def process_controller():
     while True:
         events = get_gamepad()
         for event in events:
-            if event.code == 'ABS_Y':  # Left joystick Y-axis (forward/backward)
-                speed = event.state / 330 # Normalize to 0-100
-                motorFL.drive(1 if speed >= 0 else 2, abs(speed))
-                motorFR.drive(1 if speed >= 0 else 2, abs(speed))
-                motorBL.drive(1 if speed >= 0 else 2, abs(speed))
-                motorBR.drive(1 if speed >= 0 else 2, abs(speed))
-            elif event.code == 'ABS_X':  # Left joystick X-axis (left/right)
-                strafe_speed = event.state / 330  # Normalize to 0-100
+            if event.code == 'ABS_HAT0Y':  # Dpad Y-axis (forward/backward)
+                speed = event.state  # Dpad values are -1, 0, or 1
+                motorFL.drive(1 if speed >= 0 else 2, abs(speed)*100)
+                motorFR.drive(1 if speed >= 0 else 2, abs(speed)*100)
+                motorBL.drive(1 if speed >= 0 else 2, abs(speed)*100)
+                motorBR.drive(1 if speed >= 0 else 2, abs(speed)*100)
+            elif event.code == 'ABS_HAT0X':  # Dpad X-axis (left/right)
+                strafe_speed = event.state  # Dpad values are -1, 0, or 1
                 if strafe_speed >= 0:  # Strafe right
-                    motorFL.drive(1, abs(strafe_speed))
-                    motorBL.drive(2, abs(strafe_speed))
-                    motorFR.drive(2, abs(strafe_speed))
-                    motorBR.drive(1, abs(strafe_speed))
+                    motorFL.drive(1, abs(strafe_speed)*100)
+                    motorBL.drive(2, abs(strafe_speed)*100)
+                    motorFR.drive(2, abs(strafe_speed)*100)
+                    motorBR.drive(1, abs(strafe_speed)*100)
                 else:  # Strafe left
-                    motorFL.drive(2, abs(strafe_speed))
-                    motorBL.drive(1, abs(strafe_speed))
-                    motorFR.drive(1, abs(strafe_speed))
-                    motorBR.drive(2, abs(strafe_speed))
+                    motorFL.drive(2, abs(strafe_speed)*100)
+                    motorBL.drive(1, abs(strafe_speed)*100)
+                    motorFR.drive(1, abs(strafe_speed)*100)
+                    motorBR.drive(2, abs(strafe_speed)*100)
             elif event.code == 'ABS_RX':  # Right joystick X-axis (turning)
                 turn_speed = event.state / 330  # Normalize to 0-100
                 if turn_speed >= 0:  # Turn right
