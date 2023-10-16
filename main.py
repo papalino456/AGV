@@ -64,10 +64,10 @@ while True:
 
     if not valC:  # If line is detected by the center sensor
         # Move forward
-        motorFL.drive(2, 20)
-        motorFR.drive(2, 20)
-        motorBL.drive(2, 20)
-        motorBR.drive(2, 20)
+        motorFL.drive(2, 15)
+        motorFR.drive(2, 15)
+        motorBL.drive(2, 15)
+        motorBR.drive(2, 15)
     elif not valL:  # If line is detected by the left sensor
         # Move slightly to the right
         motorFL.drive(2, 20)
