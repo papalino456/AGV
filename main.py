@@ -43,24 +43,47 @@ motorFR = Motor(pca, 9, 7, 8)
 motorBL = Motor(pca, 10, 11, 12)
 motorBR = Motor(pca, 4, 6, 5)
 
-IRsensor = digitalio.DigitalInOut(board.D26)
-IRsensor.direction = digitalio.Direction.INPUT
-IRsensor.pull = digitalio.Pull.UP
+IRsensorL = digitalio.DigitalInOut(board.D21)
+IRsensorC = digitalio.DigitalInOut(board.D20)
+IRsensorR = digitalio.DigitalInOut(board.D16)
+
+IRsensorL.direction = digitalio.Direction.INPUT
+IRsensorC.direction = digitalio.Direction.INPUT
+IRsensorR.direction = digitalio.Direction.INPUT
+
+IRsensorL.pull = digitalio.Pull.UP
+IRsensorC.pull = digitalio.Pull.UP
+IRsensorR.pull = digitalio.Pull.UP
+
 while True:
-    val = IRsensor.value
-    if not val:  # If line is detected
+    valL = IRsensorL.value
+    valC = IRsensorC.value
+    valR = IRsensorR.value
+
+    if not valC:  # If line is detected by the center sensor
+        # Move forward
+        motorFL.drive(1, 100)
+        motorFR.drive(1, 100)
+        motorBL.drive(1, 100)
+        motorBR.drive(1, 100)
+    elif not valL:  # If line is detected by the left sensor
         # Move slightly to the right
-        motorFL.drive(1, 0)
-        motorFR.drive(1, 25)  # Slow down right motors to turn right
-        motorBL.drive(1, 0)
-        motorBR.drive(1, 25)  # Slow down right motors to turn right
-    elif val:  # If line is not detected
+        motorFL.drive(1, 50)
+        motorFR.drive(1, 100)
+        motorBL.drive(1, 50)
+        motorBR.drive(1, 100)
+    elif not valR:  # If line is detected by the right sensor
         # Move slightly to the left
-        motorFL.drive(1, 25)  # Slow down left motors to turn left
-        motorFR.drive(2, 25)
-        motorBL.drive(1, 40)  # Slow down left motors to turn left
-        motorBR.drive(2, 25)
-        time.sleep(0.1)  # Delay to allow motors to respond
+        motorFL.drive(1, 100)
+        motorFR.drive(1, 50)
+        motorBL.drive(1, 100)
+        motorBR.drive(1, 50)
+    else:  # If line is not detected
+        # Stop
+        motorFL.stop()
+        motorFR.stop()
+        motorBL.stop()
+        motorBR.stop()
 
 
 

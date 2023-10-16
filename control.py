@@ -5,7 +5,7 @@ import board
 import busio
 import time
 import digitalio
-from inputs import get_gamepad
+from inputs import get_gamepad, devices
 
 i2c_bus = busio.I2C(SCL, SDA)
 
@@ -48,10 +48,10 @@ def process_controller():
         for event in events:
             if event.code == 'ABS_HAT0Y':  # Dpad Y-axis (forward/backward)
                 speed = event.state  # Dpad values are -1, 0, or 1
-                motorFL.drive(1 if speed >= 0 else 2, abs(speed)*100)
-                motorFR.drive(1 if speed >= 0 else 2, abs(speed)*100)
-                motorBL.drive(1 if speed >= 0 else 2, abs(speed)*100)
-                motorBR.drive(1 if speed >= 0 else 2, abs(speed)*100)
+                motorFL.drive(1 if speed <= 0 else 2, abs(speed)*100)
+                motorFR.drive(1 if speed <= 0 else 2, abs(speed)*100)
+                motorBL.drive(1 if speed <= 0 else 2, abs(speed)*100)
+                motorBR.drive(1 if speed <= 0 else 2, abs(speed)*100)
             elif event.code == 'ABS_HAT0X':  # Dpad X-axis (left/right)
                 strafe_speed = event.state  # Dpad values are -1, 0, or 1
                 if strafe_speed >= 0:  # Strafe right
@@ -78,5 +78,9 @@ def process_controller():
                     motorBR.drive(1, abs(turn_speed))
 
 # Start processing controller input
+while len(devices.gamepads) == 0:
+    print("Waiting for controller...")
+    time.sleep(1)
+    
 process_controller()
 
