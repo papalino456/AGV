@@ -84,10 +84,10 @@ while True:
         time.sleep(0.3)
     else:  # If line is not detected
         # Stop
-        motorFL.drive(2, 20)
-        motorFR.drive(2, 20)
-        motorBL.drive(2, 20)
-        motorBR.drive(2, 20)
+        motorFL.drive(2, 15)
+        motorFR.drive(2, 15)
+        motorBL.drive(2, 15)
+        motorBR.drive(2, 15)
 
 
 
