@@ -15,6 +15,8 @@ pca = PCA9685(i2c_bus)
 
 # Set the PWM frequency to 60hz.
 pca.frequency = 400
+speedHIGH = 50
+speedLOW = 25
 
 class Motor:
     def __init__(self, pca, en_channel, in1_channel, in2_channel):
