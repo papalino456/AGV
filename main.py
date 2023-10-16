@@ -82,10 +82,10 @@ while True:
         motorBR.drive(2, 20)
     else:  # If line is not detected
         # Stop
-        motorFL.drive(2, 20)
-        motorFR.drive(2, 20)
-        motorBL.drive(2, 20)
-        motorBR.drive(2, 20)
+        motorFL.drive(2, 10)
+        motorFR.drive(2, 10)
+        motorBL.drive(2, 10)
+        motorBR.drive(2, 10)
 
 
 
