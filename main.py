@@ -45,22 +45,30 @@ motorFR = Motor(pca, 9, 7, 8)
 motorBL = Motor(pca, 10, 11, 12)
 motorBR = Motor(pca, 4, 6, 5)
 
+IRsensorFL = digitalio.DigitalInOut(board.D12)
 IRsensorL = digitalio.DigitalInOut(board.D21)
 IRsensorC = digitalio.DigitalInOut(board.D20)
 IRsensorR = digitalio.DigitalInOut(board.D16)
+IRsensorFR = digitalio.DigitalInOut(board.D1)
 
+IRsensorFL.direction = digitalio.Direction.INPUT
 IRsensorL.direction = digitalio.Direction.INPUT
 IRsensorC.direction = digitalio.Direction.INPUT
 IRsensorR.direction = digitalio.Direction.INPUT
+IRsensorFR.direction = digitalio.Direction.INPUT
 
+IRsensorFL.pull = digitalio.Pull.UP
 IRsensorL.pull = digitalio.Pull.UP
 IRsensorC.pull = digitalio.Pull.UP
 IRsensorR.pull = digitalio.Pull.UP
+IRsensorFR.pull = digitalio.Pull.UP
 
 while True:
+    valFL = not IRsensorFL.value
     valL = not IRsensorL.value
     valC = not IRsensorC.value
     valR = not IRsensorR.value
+    valFR = not IRsensorFR.value
 
     if not valC:  # If line is detected by the center sensor
         # Move forward
@@ -80,6 +88,19 @@ while True:
         motorFL.drive(1, 20)
         motorFR.drive(2, 25)
         motorBL.drive(1, 20)
+        motorBR.drive(2, 25)
+        time.sleep(0.2)
+    elif not valFL:
+        motorFL.drive(2, 25)
+        motorFR.stop()
+        motorBL.drive(2, 25)
+        motorBR.stop()
+        time.sleep(0.2)
+    elif not valFR:  # If line is detected by the right sensor
+        # Move slightly to the left
+        motorFL.stop()
+        motorFR.drive(2, 25)
+        motorBL.stop()
         motorBR.drive(2, 25)
         time.sleep(0.2)
     else:  # If line is not detected
