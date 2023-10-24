@@ -107,10 +107,10 @@ while True:
     """
     else:  # If line is not detected
         # Stop
-        motorFL.drive(2, 40)
-        motorFR.drive(2, 40)
-        motorBL.drive(2, 40)
-        motorBR.drive(2, 40)
+        motorFL.drive(2, 30)
+        motorFR.drive(2, 30)
+        motorBL.drive(2, 30)
+        motorBR.drive(2, 30)
 
 
 
