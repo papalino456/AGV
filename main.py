@@ -58,9 +58,9 @@ IRsensorC.pull = digitalio.Pull.UP
 IRsensorR.pull = digitalio.Pull.UP
 
 while True:
-    valL = IRsensorL.value
-    valC = IRsensorC.value
-    valR = IRsensorR.value
+    valL = not IRsensorL.value
+    valC = not IRsensorC.value
+    valR = not IRsensorR.value
 
     if not valC:  # If line is detected by the center sensor
         # Move forward
