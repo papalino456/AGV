@@ -19,7 +19,7 @@ pca.frequency = 400
 speedHIGH = 50
 speedLOW = 25
 
-USsensor = adafruit_hcsr04.HCSR04(trigger_pin=board.D8, echo_pin=board.D7)
+USsensor = adafruit_hcsr04.HCSR04(trigger_pin=board.D8, echo_pin=board.D7, timeout=0.1)
 
 class Motor:
     def __init__(self, pca, en_channel, in1_channel, in2_channel):
@@ -72,7 +72,12 @@ while True:
     valC = not IRsensorC.value
     valR = not IRsensorR.value
     valFR = not IRsensorFR.value
-    if USsensor.distance < 7:
+    try:
+        dist = USsensor.distance
+    except:
+        print("no read")
+
+    if dist < 7:
         motorBR.stop()
         motorBL.stop()
         motorFR.stop()
