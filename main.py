@@ -121,9 +121,7 @@ while True:
         motorBR.drive(2, 30)
     try:
         dist = USsensor.distance
-        print(dist)
     except:
-        print("no read")
         dist = 16
 
 
