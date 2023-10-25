@@ -67,11 +67,11 @@ IRsensorR.pull = digitalio.Pull.UP
 IRsensorFR.pull = digitalio.Pull.UP
 
 while True:
-    valFL = IRsensorFL.value
-    valL = IRsensorL.value
-    valC = IRsensorC.value
-    valR = IRsensorR.value
-    valFR = IRsensorFR.value
+    valFL = not IRsensorFL.value
+    valL = not IRsensorL.value
+    valC = not IRsensorC.value
+    valR = not IRsensorR.value
+    valFR = not IRsensorFR.value
     try:
         dist = USsensor.distance
     except:
