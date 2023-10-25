@@ -67,11 +67,11 @@ IRsensorR.pull = digitalio.Pull.UP
 IRsensorFR.pull = digitalio.Pull.UP
 
 while True:
-    valFL = not IRsensorFL.value
-    valL = not IRsensorL.value
-    valC = not IRsensorC.value
-    valR = not IRsensorR.value
-    valFR = not IRsensorFR.value
+    valFL = IRsensorFL.value
+    valL = IRsensorL.value
+    valC = IRsensorC.value
+    valR = IRsensorR.value
+    valFR = IRsensorFR.value
     try:
         dist = USsensor.distance
     except:
@@ -85,10 +85,10 @@ while True:
         motorFL.stop()
     elif not valC:  # If line is detected by the center sensor
         # Move forward
-        motorFL.drive(2, 25)
-        motorFR.drive(2, 25)
-        motorBL.drive(2, 25)
-        motorBR.drive(2, 25)
+        motorFL.drive(2, 40)
+        motorFR.drive(2, 40)
+        motorBL.drive(2, 40)
+        motorBR.drive(2, 40)
     elif not valL:  # If line is detected by the left sensor
         # Move slightly tothe right
         motorFL.drive(2, 25)
@@ -120,10 +120,10 @@ while True:
     """
     else:  # If line is not detected
         # Stop
-        motorFL.drive(2, 25)
-        motorFR.drive(2, 25)
-        motorBL.drive(2, 25)
-        motorBR.drive(2, 25)
+        motorFL.drive(2, 40)
+        motorFR.drive(2, 40)
+        motorBL.drive(2, 40)
+        motorBR.drive(2, 40)
 
 
 
