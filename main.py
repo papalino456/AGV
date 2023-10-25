@@ -6,6 +6,7 @@ from adafruit_pca9685 import PCA9685
 from board import SCL, SDA
 import board
 import busio
+import adafruit_hcsr04
 import time
 import digitalio
 i2c_bus = busio.I2C(SCL, SDA)
@@ -17,6 +18,8 @@ pca = PCA9685(i2c_bus)
 pca.frequency = 400
 speedHIGH = 50
 speedLOW = 25
+
+USsensor = adafruit_hcsr04.HCSR04(trigger_pin=board.D8, echo_pin=board.D7)
 
 class Motor:
     def __init__(self, pca, en_channel, in1_channel, in2_channel):
@@ -69,8 +72,12 @@ while True:
     valC = not IRsensorC.value
     valR = not IRsensorR.value
     valFR = not IRsensorFR.value
-
-    if not valC:  # If line is detected by the center sensor
+    if USsensor.distance < 7:
+        motorBR.stop()
+        motorBL.stop()
+        motorFR.stop()
+        motorFL.stop()
+    elif not valC:  # If line is detected by the center sensor
         # Move forward
         motorFL.drive(2, 25)
         motorFR.drive(2, 25)
@@ -111,6 +118,7 @@ while True:
         motorFR.drive(2, 25)
         motorBL.drive(2, 25)
         motorBR.drive(2, 25)
+
 
 
 
