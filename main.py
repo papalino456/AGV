@@ -13,7 +13,7 @@ i2c_bus = busio.I2C(SCL, SDA)
 
 # Create a simple PCA9685 class instance.
 pca = PCA9685(i2c_bus)
-
+dist = 16
 # Set the PWM frequency to 60hz.
 pca.frequency = 400
 speedHIGH = 50
@@ -72,12 +72,6 @@ while True:
     valC = not IRsensorC.value
     valR = not IRsensorR.value
     valFR = not IRsensorFR.value
-    try:
-        dist = USsensor.distance
-        print(dist)
-    except:
-        print("no read")
-        dist = 16
 
     if dist < 10:
         motorBR.stop()
@@ -125,9 +119,12 @@ while True:
         motorFR.drive(2, 30)
         motorBL.drive(2, 30)
         motorBR.drive(2, 30)
-
-
-
+    try:
+        dist = USsensor.distance
+        print(dist)
+    except:
+        print("no read")
+        dist = 16
 
 
 
