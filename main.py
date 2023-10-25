@@ -76,6 +76,7 @@ while True:
         dist = USsensor.distance
     except:
         print("no read")
+        dist = 8
 
     if dist < 7:
         motorBR.stop()
