@@ -19,7 +19,7 @@ pca.frequency = 400
 speedHIGH = 50
 speedLOW = 25
 
-USsensor = adafruit_hcsr04.HCSR04(trigger_pin=board.D8, echo_pin=board.D7, timeout=0.1)
+USsensor = adafruit_hcsr04.HCSR04(trigger_pin=board.D8, echo_pin=board.D7)
 
 class Motor:
     def __init__(self, pca, en_channel, in1_channel, in2_channel):
