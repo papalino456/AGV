@@ -74,11 +74,12 @@ while True:
     valFR = not IRsensorFR.value
     try:
         dist = USsensor.distance
+        print(dist)
     except:
         print("no read")
         dist = 16
 
-    if dist < 15:
+    if dist < 10:
         motorBR.stop()
         motorBL.stop()
         motorFR.stop()
