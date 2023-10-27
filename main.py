@@ -73,19 +73,20 @@ while True:
     valC = not IRsensorC.value
     valR = not IRsensorR.value
     valFR = not IRsensorFR.value
+
     if dist < 10:
         motorBR.stop()
         motorBL.stop()
         motorFR.stop()
         motorFL.stop()
-    elif not valL:  # If line is detected by the left sensor
+    elif valL:  # If line is detected by the left sensor
         # Move slightly tothe right
         motorFL.drive(2, 25)
         motorFR.drive(1, 25)
         motorBL.drive(2, 25)
         motorBR.drive(1, 25)
         time.sleep(0.2)
-    elif not valR:  # If line is detected by the right sensor
+    elif valR:  # If line is detected by the right sensor
         # Move slightly to the left
         motorFL.drive(1, 25)
         motorFR.drive(2, 25)
