@@ -74,8 +74,10 @@ while True:
     valFR = not IRsensorFR.value
     try:
         dist = USsensor.distance
+        print(dist)
     except RuntimeError:
         dist = 16
+        print("nononononono")
 
     if dist < 15:
         motorBR.stop()
