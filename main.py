@@ -66,36 +66,18 @@ IRsensorC.pull = digitalio.Pull.UP
 IRsensorR.pull = digitalio.Pull.UP
 IRsensorFR.pull = digitalio.Pull.UP
 dist = 16
+
 while True:
     valFL = not IRsensorFL.value
     valL = not IRsensorL.value
     valC = not IRsensorC.value
     valR = not IRsensorR.value
     valFR = not IRsensorFR.value
-    
-    import threading
-
-    def get_distance():
-        try:
-            dist = USsensor.distance
-        except:
-            dist = 16
-        return dist
-
-    dist_thread = threading.Thread(target=get_distance)
-    dist_thread.start()
-
     if dist < 10:
         motorBR.stop()
         motorBL.stop()
         motorFR.stop()
         motorFL.stop()
-    elif not valC:  # If line is detected by the center sensor
-        # Move forward
-        motorFL.drive(2, 25)
-        motorFR.drive(2, 25)
-        motorBL.drive(2, 25)
-        motorBR.drive(2, 25)
     elif not valL:  # If line is detected by the left sensor
         # Move slightly tothe right
         motorFL.drive(2, 25)
@@ -110,21 +92,6 @@ while True:
         motorBL.drive(1, 25)
         motorBR.drive(2, 25)
         time.sleep(0.2)
-        """
-    elif not valFL:
-        motorFL.drive(2, 25)
-        motorFR.stop()
-        motorBL.drive(2, 25)
-        motorBR.stop()
-        time.sleep(0.2)
-    elif not valFR:  # If line is detected by the right sensor
-        # Move slightly to the left
-        motorFL.stop()
-        motorFR.drive(2, 25)
-        motorBL.stop()
-        motorBR.drive(2, 25)
-        time.sleep(0.2)
-    """
     else:  # If line is not detected
         # Stop
         motorFL.drive(2, 25)
