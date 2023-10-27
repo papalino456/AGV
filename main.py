@@ -19,7 +19,7 @@ pca.frequency = 400
 speedHIGH = 50
 speedLOW = 25
 
-USsensor = adafruit_hcsr04.HCSR04(trigger_pin=board.D8, echo_pin=board.D7, timeout=0.05)
+USsensor = adafruit_hcsr04.HCSR04(trigger_pin=board.D8, echo_pin=board.D20, timeout=0.05)
 
 class Motor:
     def __init__(self, pca, en_channel, in1_channel, in2_channel):
@@ -50,19 +50,19 @@ motorBR = Motor(pca, 4, 6, 5)
 
 IRsensorFL = digitalio.DigitalInOut(board.D12)
 IRsensorL = digitalio.DigitalInOut(board.D21)
-IRsensorC = digitalio.DigitalInOut(board.D20)
+
 IRsensorR = digitalio.DigitalInOut(board.D16)
 IRsensorFR = digitalio.DigitalInOut(board.D1)
 
 IRsensorFL.direction = digitalio.Direction.INPUT
 IRsensorL.direction = digitalio.Direction.INPUT
-IRsensorC.direction = digitalio.Direction.INPUT
+
 IRsensorR.direction = digitalio.Direction.INPUT
 IRsensorFR.direction = digitalio.Direction.INPUT
 
 IRsensorFL.pull = digitalio.Pull.UP
 IRsensorL.pull = digitalio.Pull.UP
-IRsensorC.pull = digitalio.Pull.UP
+
 IRsensorR.pull = digitalio.Pull.UP
 IRsensorFR.pull = digitalio.Pull.UP
 dist = 16
@@ -77,6 +77,7 @@ while True:
         dist = USsensor.distance
     except RuntimeError:
         dist = 16
+
     if dist < 15:
         motorBR.stop()
         motorBL.stop()
