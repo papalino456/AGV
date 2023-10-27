@@ -70,7 +70,6 @@ dist = 16
 while True:
     valFL = not IRsensorFL.value
     valL = not IRsensorL.value
-    valC = not IRsensorC.value
     valR = not IRsensorR.value
     valFR = not IRsensorFR.value
     try:
