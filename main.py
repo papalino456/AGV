@@ -19,7 +19,7 @@ pca.frequency = 400
 speedHIGH = 50
 speedLOW = 25
 
-USsensor = adafruit_hcsr04.HCSR04(trigger_pin=board.D8, echo_pin=board.D7)
+USsensor = adafruit_hcsr04.HCSR04(trigger_pin=board.D8, echo_pin=board.D7, timeout=0.05)
 
 class Motor:
     def __init__(self, pca, en_channel, in1_channel, in2_channel):
@@ -73,8 +73,11 @@ while True:
     valC = not IRsensorC.value
     valR = not IRsensorR.value
     valFR = not IRsensorFR.value
-
-    if dist < 10:
+    try:
+        dist = USsensor.distance
+    except RuntimeError:
+        dist = 16
+    if dist < 15:
         motorBR.stop()
         motorBL.stop()
         motorFR.stop()
@@ -82,15 +85,15 @@ while True:
     elif valL:  # If line is detected by the left sensor
         # Move slightly tothe right
         motorFL.drive(2, 25)
-        motorFR.drive(1,15)
+        motorFR.drive(1,17)
         motorBL.drive(2, 25)
-        motorBR.drive(1,15)
+        motorBR.drive(1,17)
         time.sleep(0.1)
     elif valR:  # If line is detected by the right sensor
         # Move slightly to the left
-        motorFL.drive(1,15)
+        motorFL.drive(1,17)
         motorFR.drive(2, 25)
-        motorBL.drive(1,15)
+        motorBL.drive(1,17)
         motorBR.drive(2, 25)
         time.sleep(0.1)
     else:  # If line is not detected
