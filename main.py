@@ -15,7 +15,7 @@ i2c_bus = busio.I2C(SCL, SDA)
 pca = PCA9685(i2c_bus)
 
 # Set the PWM frequency to 60hz.
-pca.frequency = 700
+pca.frequency = 400
 
 USsensor = adafruit_hcsr04.HCSR04(trigger_pin=board.D20, echo_pin=board.D12, timeout=0.06)
 
@@ -79,7 +79,7 @@ while True:
         motorFR.drive(1, 15)
         motorBL.drive(2, 25)
         motorBR.drive(1, 15)
-        time.sleep(0.1)
+        time.sleep(0.2)
 
     elif valR:  # If line is detected by the right sensor
         # Move slightly to the left
@@ -87,7 +87,7 @@ while True:
         motorFR.drive(2, 25)
         motorBL.drive(1, 15)
         motorBR.drive(2, 25)
-        time.sleep(0.1)
+        time.sleep(0.2)
     else:  # If line is not detected
         # Stop
         motorFL.drive(2, 25)
