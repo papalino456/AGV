@@ -15,11 +15,9 @@ i2c_bus = busio.I2C(SCL, SDA)
 pca = PCA9685(i2c_bus)
 
 # Set the PWM frequency to 60hz.
-pca.frequency = 400
-speedHIGH = 50
-speedLOW = 25
+pca.frequency = 1000
 
-USsensor = adafruit_hcsr04.HCSR04(trigger_pin=board.D20, echo_pin=board.D12, timeout=0.05)
+USsensor = adafruit_hcsr04.HCSR04(trigger_pin=board.D20, echo_pin=board.D12, timeout=0.06)
 
 class Motor:
     def __init__(self, pca, en_channel, in1_channel, in2_channel):
@@ -69,7 +67,7 @@ while True:
         dist = 16
         print("nononononono")
 
-    if dist < 15:
+    if dist < 15 and dist > 1:
         motorBR.stop()
         motorBL.stop()
         motorFR.stop()
@@ -92,7 +90,7 @@ while True:
         time.sleep(0.1)
     else:  # If line is not detected
         # Stop
-        motorFL.drive(2, 25)
-        motorFR.drive(2, 25)
-        motorBL.drive(2, 25)
-        motorBR.drive(2, 25)
+        motorFL.drive(2, 20)
+        motorFR.drive(2, 20)
+        motorBL.drive(2, 20)
+        motorBR.drive(2, 20)
