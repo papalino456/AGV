@@ -19,7 +19,7 @@ pca.frequency = 400
 speedHIGH = 50
 speedLOW = 25
 
-USsensor = adafruit_hcsr04.HCSR04(trigger_pin=board.D8, echo_pin=board.D20, timeout=0.05)
+USsensor = adafruit_hcsr04.HCSR04(trigger_pin=board.D20, echo_pin=board.D12, timeout=0.05)
 
 class Motor:
     def __init__(self, pca, en_channel, in1_channel, in2_channel):
@@ -48,30 +48,20 @@ motorFR = Motor(pca, 9, 7, 8)
 motorBL = Motor(pca, 10, 11, 12)
 motorBR = Motor(pca, 4, 6, 5)
 
-IRsensorFL = digitalio.DigitalInOut(board.D12)
 IRsensorL = digitalio.DigitalInOut(board.D21)
-
 IRsensorR = digitalio.DigitalInOut(board.D16)
-IRsensorFR = digitalio.DigitalInOut(board.D1)
 
-IRsensorFL.direction = digitalio.Direction.INPUT
 IRsensorL.direction = digitalio.Direction.INPUT
-
 IRsensorR.direction = digitalio.Direction.INPUT
-IRsensorFR.direction = digitalio.Direction.INPUT
 
-IRsensorFL.pull = digitalio.Pull.UP
 IRsensorL.pull = digitalio.Pull.UP
-
 IRsensorR.pull = digitalio.Pull.UP
-IRsensorFR.pull = digitalio.Pull.UP
+
 dist = 16
 
 while True:
-    valFL = not IRsensorFL.value
     valL = not IRsensorL.value
     valR = not IRsensorR.value
-    valFR = not IRsensorFR.value
     try:
         dist = USsensor.distance
         print(dist)
@@ -105,33 +95,3 @@ while True:
         motorFR.drive(2, 25)
         motorBL.drive(2, 25)
         motorBR.drive(2, 25)
-
-
-
-
-
-
-"""
-# Set the PWM duty cycle for channel zero to 50%. duty_cycle is 16 bits>
-# but the PCA9685 will only actually give 12 bits of resolution.
-# Increase brightness:
-for i in range(0xffff):
-    pca.channels[4].duty_cycle = i
-
-# Decrease brightness:
-for i in range(0xffff, 0, -1):
-    pca.channels[4].duty_cycle = i
-    """
-
-
-"""
-# Set the PWM duty cycle for channel zero to 50%. duty_cycle is 16 bits>
-# but the PCA9685 will only actually give 12 bits of resolution.
-# Increase brightness:
-for i in range(0xffff):
-    pca.channels[4].duty_cycle = i
-
-# Decrease brightness:
-for i in range(0xffff, 0, -1):
-    pca.channels[4].duty_cycle = i
-    """
