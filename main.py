@@ -75,22 +75,22 @@ while True:
         time.sleep(5)
     elif valL:  # If line is detected by the left sensor
         # Move slightly tothe right
-        motorFL.drive(2, 25)
-        motorFR.drive(1, 25)
-        motorBL.drive(2, 25)
-        motorBR.drive(1, 25)
+        motorFL.drive(2, 30)
+        motorFR.drive(1, 30)
+        motorBL.drive(2, 30)
+        motorBR.drive(1, 30)
         time.sleep(0.2)
 
     elif valR:  # If line is detected by the right sensor
         # Move slightly to the left
-        motorFL.drive(1, 25)
-        motorFR.drive(2, 25)
-        motorBL.drive(1, 25)
-        motorBR.drive(2, 25)
+        motorFL.drive(1, 30)
+        motorFR.drive(2, 30)
+        motorBL.drive(1, 30)
+        motorBR.drive(2, 30)
         time.sleep(0.2)
     else:  # If line is not detected
         # Stop
-        motorFL.drive(2, 20)
-        motorFR.drive(2, 20)
-        motorBL.drive(2, 20)
-        motorBR.drive(2, 20)
+        motorFL.drive(2, 30)
+        motorFR.drive(2, 30)
+        motorBL.drive(2, 30)
+        motorBR.drive(2, 30)
