@@ -81,14 +81,13 @@ while True:
         motorFR.drive(1, 20)
         motorBL.drive(2, 25)
         motorBR.drive(1, 20)
-        time.sleep(0.15)
+
     elif valR:  # If line is detected by the right sensor
         # Move slightly to the left
         motorFL.drive(1, 20)
         motorFR.drive(2, 25)
         motorBL.drive(1, 20)
         motorBR.drive(2, 25)
-        time.sleep(0.15)
     else:  # If line is not detected
         # Stop
         motorFL.drive(2, 25)
