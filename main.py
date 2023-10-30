@@ -58,8 +58,8 @@ IRsensorR.pull = digitalio.Pull.UP
 dist = 16
 
 while True:
-    valL = not IRsensorL.value
-    valR = not IRsensorR.value
+    valL = IRsensorL.value
+    valR = IRsensorR.value
     try:
         dist = USsensor.distance
         print(dist)
