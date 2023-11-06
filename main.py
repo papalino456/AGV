@@ -18,6 +18,7 @@ pca = PCA9685(i2c_bus)
 pca.frequency = 700
 
 USsensor = adafruit_hcsr04.HCSR04(trigger_pin=board.D20, echo_pin=board.D12, timeout=0.06)
+#USsensor2 = adafruit_hcsr04.HCSR04(trigger_pin=board.D26, echo_pin=board.D25, timeout=0.06)
 
 class Motor:
     def __init__(self, pca, en_channel, in1_channel, in2_channel):
@@ -48,18 +49,24 @@ motorBR = Motor(pca, 4, 6, 5)
 
 IRsensorL = digitalio.DigitalInOut(board.D21)
 IRsensorR = digitalio.DigitalInOut(board.D16)
+#IRsensorR2 = digitalio.DigitalInOut(board.D24)
+#IRsensorL2 = digitalio.DigitalInOut(board.D23)
 
 IRsensorL.direction = digitalio.Direction.INPUT
 IRsensorR.direction = digitalio.Direction.INPUT
+#IRsensorL2.direction = digitalio.Direction.INPUT
+#IRsensorR2.direction = digitalio.Direction.INPUT
 
 IRsensorL.pull = digitalio.Pull.UP
 IRsensorR.pull = digitalio.Pull.UP
+#IRsensorL.pull = digitalio.Pull.UP
+#IRsensorR.pull = digitalio.Pull.UP
 
 dist = 16
 
 while True:
-    valL = IRsensorL.value
-    valR = IRsensorR.value
+    valL = not IRsensorL.value
+    valR = not IRsensorR.value
     try:
         dist = USsensor.distance
         print(dist)
@@ -99,7 +106,7 @@ while True:
         time.sleep(0.05)
     else:  # If line is not detected
         # Stop
-        motorFL.drive(2, 20)
-        motorFR.drive(2, 20)
-        motorBL.drive(2, 20)
-        motorBR.drive(2, 20)
+        motorFL.drive(2, 25)
+        motorFR.drive(2, 25)
+        motorBL.drive(2, 25)
+        motorBR.drive(2, 25)
