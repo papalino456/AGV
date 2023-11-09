@@ -67,6 +67,8 @@ dist = 16
 while True:
     valL = not IRsensorL.value
     valR = not IRsensorR.value
+    print(valL)
+    print(valR)
     try:
         dist = USsensor.distance
         print(dist)
@@ -106,7 +108,7 @@ while True:
         time.sleep(0.05)
     else:  # If line is not detected
         # Stop
-        motorFL.drive(2, 20)
+        motorFL.drive(2, 22)
         motorFR.drive(2, 20)
-        motorBL.drive(2, 20)
+        motorBL.drive(2, 22)
         motorBR.drive(2, 20)
