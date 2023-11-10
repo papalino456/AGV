@@ -27,7 +27,7 @@ class Motor:
         self.in1 = pca.channels[in1_channel]
         self.in2 = pca.channels[in2_channel]
 
-    def drive(self, direction, speed):
+    def drive(self, direction, speed): #2 = front
         # Convert speed from 0-100 to 0-0xffff
         speed = int(speed * 655.35)
         self.en.duty_cycle = speed
@@ -73,24 +73,14 @@ while True:
         dist = USsensor.distance
         print(dist)
     except RuntimeError:
-        dist = 16
+        dist = 3
         print("nononononono")
- #   if dist < 15 and dist > 1:
- #       motorBR.stop()
- #       motorBL.stop()
- #       motorFR.stop()
- #       motorFL.stop()
- #       time.sleep(10)
- #       motorFL.drive(1, 25)
- #       motorFR.drive(1, 25)
- #       motorBL.drive(1, 25)
- #       motorBR.drive(1, 25)
- #       time.sleep(1)
- #       motorFL.drive(2, 25)
- #       motorFR.drive(1, 25)
- #       motorBL.drive(2, 25)
- #       motorBR.drive(1, 25)
- #       time.sleep(2)
+    if dist < 2 and dist > 1 and not valR and not valL:
+        motorBR.stop()
+        motorBL.stop()
+        motorFR.stop()
+        motorFL.stop()
+        time.sleep(5)
     if valL:  # If line is detected by the left sensor
         # Move slightly tothe right
         motorFL.drive(2, 30)
@@ -111,16 +101,16 @@ while True:
         motorFR.stop()
         motorFL.stop()
         time.sleep(5)
-        motorFL.drive(1, 25)
-        motorFR.drive(1, 25)
-        motorBL.drive(1, 25)
-        motorBR.drive(1, 25)
+        motorFL.drive(1, 30)
+        motorFR.drive(1, 30)
+        motorBL.drive(1, 30)
+        motorBR.drive(1, 30)
         time.sleep(1)
-        motorFL.drive(2, 25)
-        motorFR.drive(1, 25)
-        motorBL.drive(2, 25)
-        motorBR.drive(1, 25)
-        time.sleep(2)
+        while valL is not True:
+            motorFL.drive(2, 25)
+            motorFR.drive(1, 25)
+            motorBL.drive(2, 25)
+            motorBR.drive(1, 25)
     else:  # If line is not detected
         # Stop
         motorFL.drive(2, 25)
