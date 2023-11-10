@@ -111,7 +111,7 @@ while True:
         motorBL.drive(2, 25)
         motorBR.drive(1, 25)
         time.sleep(0.5)
-        while valL is not True:
+        while valR is not True:
             motorFL.drive(2, 25)
             motorFR.drive(1, 25)
             motorBL.drive(2, 25)
