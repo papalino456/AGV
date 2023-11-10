@@ -73,7 +73,7 @@ while True:
         dist = USsensor.distance
         print(dist)
     except RuntimeError:
-        dist = 3
+        dist = 11
         print("nononononono")
     if dist < 10 and dist > 1 and not valR and not valL:
         motorBR.stop()
