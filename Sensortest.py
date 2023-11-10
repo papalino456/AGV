@@ -3,8 +3,8 @@ import board
 import digitalio
 import adafruit_hcsr04
 
-sonar = adafruit_hcsr04.HCSR04(trigger_pin=board.D8, echo_pin=board.D7)
-
+sonar = adafruit_hcsr04.HCSR04(trigger_pin=board.D20, echo_pin=board.D12)
+"""
 IRsensorFL = digitalio.DigitalInOut(board.D12)
 IRsensorL = digitalio.DigitalInOut(board.D21)
 IRsensorC = digitalio.DigitalInOut(board.D20)
@@ -22,8 +22,10 @@ IRsensorL.pull = digitalio.Pull.UP
 IRsensorC.pull = digitalio.Pull.UP
 IRsensorR.pull = digitalio.Pull.UP
 IRsensorFR.pull = digitalio.Pull.UP
+"""
 
 while True:
+    """
     valFL = not IRsensorFL.value
     print("valFL: ", valFL)
     valL = not IRsensorL.value
@@ -36,9 +38,7 @@ while True:
     print("valFR: ", valFR)
     """
     try:
-        print((sonar.distance,))
+        print((sonar.distance))
     except RuntimeError:
         print("Retrying!")
-    time.sleep(0.1)
-    """
     time.sleep(0.1)
