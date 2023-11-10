@@ -105,7 +105,7 @@ while True:
         motorFR.drive(1, 25)
         motorBL.drive(1, 25)
         motorBR.drive(1, 25)
-        time.sleep(1.5)
+        time.sleep(1)
         motorFL.drive(2, 25)
         motorFR.drive(1, 25)
         motorBL.drive(2, 25)
