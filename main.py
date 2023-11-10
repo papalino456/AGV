@@ -38,7 +38,7 @@ class Motor:
             self.in1.duty_cycle = 0
             self.in2.duty_cycle = 0xffff
     def stop(self):
-        self.en.duty_cycle = 0
+        self.en.duty_cycle = 1
         self.in1.duty_cycle = 0
         self.in2.duty_cycle = 0
 
@@ -106,9 +106,14 @@ while True:
         motorBL.drive(1, 20)
         motorBR.drive(2, 30)
         time.sleep(0.05)
+    if valR and valL:
+        motorFL.stop()
+        motorFR.stop()
+        motorBL.stop()
+        motorBR.stop()
     else:  # If line is not detected
         # Stop
-        motorFL.drive(2, 22)
+        motorFL.drive(2, 20)
         motorFR.drive(2, 20)
-        motorBL.drive(2, 22)
+        motorBL.drive(2, 20)
         motorBR.drive(2, 20)
