@@ -3,7 +3,7 @@ import board
 import digitalio
 import adafruit_hcsr04
 
-sonar = adafruit_hcsr04.HCSR04(trigger_pin=board.D20, echo_pin=board.D7,timeout=0.06)
+sonar = adafruit_hcsr04.HCSR04(trigger_pin=board.D20, echo_pin=board.D25,timeout=0.06)
 """
 IRsensorFL = digitalio.DigitalInOut(board.D12)
 IRsensorL = digitalio.DigitalInOut(board.D21)
