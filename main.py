@@ -44,8 +44,8 @@ class Motor:
 
 motorFL = Motor(pca, 0, 1, 2)
 motorFR = Motor(pca, 6, 8, 7)
-motorBL = Motor(pca, 5, 4, 3)
-motorBR = Motor(pca, 11, 9, 10)
+motorBL = Motor(pca, 5, 3, 4)
+motorBR = Motor(pca, 11, 10, 9)
 
 IRsensorL = digitalio.DigitalInOut(board.D21)
 IRsensorR = digitalio.DigitalInOut(board.D16)
