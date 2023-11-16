@@ -38,10 +38,10 @@ class Motor:
         self.in1.duty_cycle = 0
         self.in2.duty_cycle = 0
 
-motorFL = Motor(pca, 15, 14, 13)
-motorFR = Motor(pca, 9, 7, 8)
-motorBL = Motor(pca, 10, 11, 12)
-motorBR = Motor(pca, 4, 6, 5)
+motorFL = Motor(pca, 0, 1, 2)
+motorFR = Motor(pca, 6, 8, 7)
+motorBL = Motor(pca, 5, 4, 3)
+motorBR = Motor(pca, 11, 9, 10)
 
 IRsensor = digitalio.DigitalInOut(board.D26)
 IRsensor.direction = digitalio.Direction.INPUT
