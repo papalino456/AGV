@@ -121,7 +121,14 @@ IRsensorR.pull = digitalio.Pull.UP
 #IRsensorR.pull = digitalio.Pull.UP
 
 dist = 16
-motorFL.drive(2, 500)
 while True:
-    print("Speed: ", int(motorFL.speed),", Error: ",int(motorFL.error),", SP: ",int(motorFL.setpoint))
+    #5 second tests
+    motorFL.Kp = float(input("Kp: ",motorFL.Kp," new: "))
+    motorFL.Ki = float(input("Ki: ",motorFL.Ki," new: "))
+    motorFL.drive(2, 500)
+    timeCount = 0
+    while timeCount < 5.0:
+        print("Speed: ", int(motorFL.speed),", Error: ",int(motorFL.error),", SP: ",int(motorFL.setpoint))
+        timeCount += 0.01
+        time.sleep(0.01)
 
