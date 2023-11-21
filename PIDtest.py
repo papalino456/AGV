@@ -34,6 +34,7 @@ class Motor:
         self.setpoint = 0
         self.error = 0
         self.error_sum = 0
+        self.direction = 0
         self.Kp = 100  # Proportional gain
         self.Ki = 10  # Integral gain
         self.last_time = time.time()
@@ -71,7 +72,8 @@ class Motor:
         self.control_loop_running = True
         while self.control_loop_running:
             self.control_speed()
-            time.sleep(0.01)  # Control loop frequency     
+            time.sleep(0.01)  # Control loop frequency   
+
     def stop(self):
         self.en.duty_cycle = 1
         self.in1.duty_cycle = 0
