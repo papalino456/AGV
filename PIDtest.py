@@ -32,9 +32,10 @@ class Motor:
         self.encoder_pin = encoder_pin
         self.speed = 0
         self.setpoint = 0
+        self.error = 0
         self.error_sum = 0
-        self.Kp = 0.1  # Proportional gain
-        self.Ki = 0.01  # Integral gain
+        self.Kp = 100  # Proportional gain
+        self.Ki = 10  # Integral gain
         self.last_time = time.time()
         GPIO.setup(encoder_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         GPIO.add_event_detect(encoder_pin, GPIO.RISING, callback=self.calculate_speed)
@@ -46,9 +47,9 @@ class Motor:
         self.control_speed()
 
     def control_speed(self):
-        error = self.setpoint - self.speed
-        self.error_sum += error
-        control_value = self.Kp * error + self.Ki * self.error_sum
+        self.error = self.setpoint - self.speed
+        self.error_sum += self.error
+        control_value = self.Kp * self.error + self.Ki * self.error_sum
         # Ensure control_value is within 0-0xffff
         control_value = max(0, min(0xffff, int(control_value)))
         self.en.duty_cycle = control_value
@@ -106,27 +107,9 @@ IRsensorR.pull = digitalio.Pull.UP
 dist = 16
 
 while True:
-    print("Motor FL Speed: ", motorFL.speed)
-    print("Motor FR Speed: ", motorFR.speed)
-    print("Motor BL Speed: ", motorBL.speed)
-    print("Motor BR Speed: ", motorBR.speed)
-
-    time.sleep(3)
-
-    motorFL.drive(2, 1000)
-    motorFR.drive(2, 1000)
-    motorBL.drive(2, 1000)
-    motorBR.drive(2, 1000)
-    print("Motor FL Speed: ", motorFL.speed)
-    print("Motor FR Speed: ", motorFR.speed)
-    print("Motor BL Speed: ", motorBL.speed)
-    print("Motor BR Speed: ", motorBR.speed)
+    motorFL.drive(2, 500)
+    print("Speed: ", motorFL.speed,", Error: ",motorFL.error,", SP: ",motorFL.setpoint)
     time.sleep(3)
     motorFL.drive(2, 0)
-    motorFR.drive(2, 0)
-    motorBL.drive(2, 0)
-    motorBR.drive(2, 0)
-    print("Motor FL Speed: ", motorFL.speed)
-    print("Motor FR Speed: ", motorFR.speed)
-    print("Motor BL Speed: ", motorBL.speed)
-    print("Motor BR Speed: ", motorBR.speed)
+    print("Speed: ", motorFL.speed,", Error: ",motorFL.error,", SP: ",motorFL.setpoint)
+    time.sleep(3)
