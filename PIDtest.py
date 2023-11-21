@@ -89,9 +89,6 @@ class Motor:
             self.last_time = self.current_time
 
 motorFL = Motor(pca, 0, 1, 2,27)
-
-motorFL.start_speed_measurement()
-
 motorFL.start_control_loop()
 
 while True:
