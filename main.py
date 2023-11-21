@@ -18,7 +18,7 @@ pca = PCA9685(i2c_bus)
 pca.frequency = 700
 
 USsensor = adafruit_hcsr04.HCSR04(trigger_pin=board.D20, echo_pin=board.D25, timeout=0.06)
-#USsensor2 = adafruit_hcsr04.HCSR04(trigger_pin=board.D26, echo_pin=board.D25, timeout=0.06)
+#USsensor2 = adafruit_hcsr04.HCSR04(trigger_pin=board.D26, echo_pin=board.D12, timeout=0.06)
 
 class Motor:
     def __init__(self, pca, en_channel, in1_channel, in2_channel):
