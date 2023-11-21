@@ -78,10 +78,10 @@ class Motor:
         GPIO.remove_event_detect(self.encoder_pin)
         self.speed_thread.join()
 
-motorFL = Motor(pca, 0, 1, 2)
-motorFR = Motor(pca, 6, 8, 7)
-motorBL = Motor(pca, 5, 3, 4)
-motorBR = Motor(pca, 11, 10, 9)
+motorFL = Motor(pca, 0, 1, 2,27)
+motorFR = Motor(pca, 6, 8, 7,17)
+motorBL = Motor(pca, 5, 3, 4, 22)
+motorBR = Motor(pca, 11, 10, 9, 10)
 
 IRsensorL = digitalio.DigitalInOut(board.D21)
 IRsensorR = digitalio.DigitalInOut(board.D16)
