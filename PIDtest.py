@@ -40,6 +40,7 @@ class Motor:
         self.last_time = time.time()
         GPIO.setup(encoder_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         GPIO.add_event_detect(encoder_pin, GPIO.RISING, callback=self.calculate_speed)
+        self.lock = threading.Lock()
 
 
     def drive(self, direction, setpoint):  # setpoint in pulses per second
@@ -47,12 +48,13 @@ class Motor:
         self.direction = direction
 
     def control_speed(self):
-        self.error = self.setpoint - self.speed
-        self.error_sum += self.error
-        control_value = self.Kp * self.error + self.Ki * self.error_sum
+        with self.lock:
+            error = self.setpoint - self.speed
+        self.error_sum += error
+        self.control_value = self.Kp * error + self.Ki * self.error_sum
         # Ensure control_value is within 0-0xffff
-        control_value = max(0, min(0xffff, int(control_value)))
-        self.en.duty_cycle = control_value
+        self.satcontrol_value = max(0, min(0xffff, int(self.control_value)))
+        self.en.duty_cycle = self.satcontrol_value
         if self.direction == 1:
             self.in1.duty_cycle = 0xffff
             self.in2.duty_cycle = 0
@@ -80,49 +82,18 @@ class Motor:
         self.in2.duty_cycle = 0
 
     def calculate_speed(self, channel):
-        current_time = time.time()
-        pulse_time = current_time - self.last_time
-        self.speed = 1 / pulse_time  # Speed in pulses per second
-        self.last_time = current_time
-
-    def start_speed_measurement(self):
-        self.speed_thread = threading.Thread(target=self.calculate_speed)
-        self.speed_thread.start()
-
-    def stop_speed_measurement(self):
-        GPIO.remove_event_detect(self.encoder_pin)
-        self.speed_thread.join()
+        with self.lock:
+            self.current_time = time.time()
+            self.pulse_time = self.current_time - self.last_time
+            self.speed = 1 / self.pulse_time  # Speed in pulses per second
+            self.last_time = self.current_time
 
 motorFL = Motor(pca, 0, 1, 2,27)
-motorFR = Motor(pca, 6, 8, 7,17)
-motorBL = Motor(pca, 5, 3, 4, 22)
-motorBR = Motor(pca, 11, 10, 9, 10)
 
 motorFL.start_speed_measurement()
-motorFR.start_speed_measurement()
-motorBL.start_speed_measurement()
-motorBR.start_speed_measurement()
 
 motorFL.start_control_loop()
-# Do the same for the other motors
 
-
-IRsensorL = digitalio.DigitalInOut(board.D21)
-IRsensorR = digitalio.DigitalInOut(board.D16)
-#IRsensorR2 = digitalio.DigitalInOut(board.D24)
-#IRsensorL2 = digitalio.DigitalInOut(board.D23)
-
-IRsensorL.direction = digitalio.Direction.INPUT
-IRsensorR.direction = digitalio.Direction.INPUT
-#IRsensorL2.direction = digitalio.Direction.INPUT
-#IRsensorR2.direction = digitalio.Direction.INPUT
-
-IRsensorL.pull = digitalio.Pull.UP
-IRsensorR.pull = digitalio.Pull.UP
-#IRsensorL.pull = digitalio.Pull.UP
-#IRsensorR.pull = digitalio.Pull.UP
-
-dist = 16
 while True:
     #5 second tests
     motorFL.Kp = float(input("Kp: ",motorFL.Kp," new: "))
