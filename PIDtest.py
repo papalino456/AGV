@@ -106,74 +106,27 @@ IRsensorR.pull = digitalio.Pull.UP
 dist = 16
 
 while True:
-    valL = IRsensorL.value
-    valR = IRsensorR.value
-    print(valL)
-    print(valR)
-    try:
-        dist = USsensor.distance
-        print(dist)
-    except RuntimeError:
-        dist = 11
-        print("nononononono")
-    if dist < 10 and dist > 1 and not valR and not valL:
-        motorBR.stop()
-        motorBL.stop()
-        motorFR.stop()
-        motorFL.stop()
-        time.sleep(5)
-    if valL:  # If line is detected by the left sensor
-        # Move slightly tothe right
-        motorFL.drive(2, 30)
-        motorFR.drive(1, 20)
-        motorBL.drive(2, 30)
-        motorBR.drive(1, 20)
-        time.sleep(0.05)
-    elif valR:  # If line is detected by the right sensor
-        # Move slightly to the left
-        motorFL.drive(1, 20)
-        motorFR.drive(2, 30)
-        motorBL.drive(1, 20)
-        motorBR.drive(2, 30)
-        time.sleep(0.05)
-    if valR and valL is True:     
-        motorBR.stop()
-        motorBL.stop()
-        motorFR.stop()
-        motorFL.stop()
-        time.sleep(.5)
-        motorFL.drive(2, 30)
-        motorFR.drive(2, 30)
-        motorBL.drive(2, 30)
-        motorBR.drive(2, 30)
-        time.sleep(0.5)
-        motorBR.stop()
-        motorBL.stop()
-        motorFR.stop()
-        motorFL.stop()
-        time.sleep(5)
-        motorFL.drive(1, 30)
-        motorFR.drive(1, 30)
-        motorBL.drive(1, 30)
-        motorBR.drive(1, 30)
-        time.sleep(0.8)
-        motorBR.stop()
-        motorBL.stop()
-        motorFR.stop()
-        motorFL.stop()
-        time.sleep(.5)
-        motorFL.drive(2, 30)
-        motorFR.drive(1, 30)
-        motorBL.drive(2, 30)
-        motorBR.drive(1, 30)
-        time.sleep(1.25)
-        motorBR.stop()
-        motorBL.stop()
-        motorFR.stop()
-        motorFL.stop()
-    else:  # If line is not detected
-        # Stop
-        motorFL.drive(2, 22)
-        motorFR.drive(2, 22)
-        motorBL.drive(2, 22)
-        motorBR.drive(2, 22)
+    print("Motor FL Speed: ", motorFL.speed)
+    print("Motor FR Speed: ", motorFR.speed)
+    print("Motor BL Speed: ", motorBL.speed)
+    print("Motor BR Speed: ", motorBR.speed)
+
+    time.sleep(3)
+
+    motorFL.drive(2, 1000)
+    motorFR.drive(2, 1000)
+    motorBL.drive(2, 1000)
+    motorBR.drive(2, 1000)
+    print("Motor FL Speed: ", motorFL.speed)
+    print("Motor FR Speed: ", motorFR.speed)
+    print("Motor BL Speed: ", motorBL.speed)
+    print("Motor BR Speed: ", motorBR.speed)
+    time.sleep(3)
+    motorFL.drive(2, 0)
+    motorFR.drive(2, 0)
+    motorBL.drive(2, 0)
+    motorBR.drive(2, 0)
+    print("Motor FL Speed: ", motorFL.speed)
+    print("Motor FR Speed: ", motorFR.speed)
+    print("Motor BL Speed: ", motorBL.speed)
+    print("Motor BR Speed: ", motorBR.speed)
