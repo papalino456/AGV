@@ -44,7 +44,6 @@ class Motor:
     def drive(self, direction, setpoint):  # setpoint in pulses per second
         self.setpoint = setpoint
         self.direction = direction
-        self.control_speed()
 
     def control_speed(self):
         self.error = self.setpoint - self.speed
@@ -58,8 +57,21 @@ class Motor:
             self.in2.duty_cycle = 0
         elif self.direction == 2:
             self.in1.duty_cycle = 0
-            self.in2.duty_cycle = 0xffff    
-            
+            self.in2.duty_cycle = 0xffff   
+     
+    def start_control_loop(self):
+        self.control_thread = threading.Thread(target=self.control_loop)
+        self.control_thread.start()
+
+    def stop_control_loop(self):
+        self.control_loop_running = False
+        self.control_thread.join()
+
+    def control_loop(self):
+        self.control_loop_running = True
+        while self.control_loop_running:
+            self.control_speed()
+            time.sleep(0.01)  # Control loop frequency     
     def stop(self):
         self.en.duty_cycle = 1
         self.in1.duty_cycle = 0
@@ -88,6 +100,10 @@ motorFL.start_speed_measurement()
 motorFR.start_speed_measurement()
 motorBL.start_speed_measurement()
 motorBR.start_speed_measurement()
+
+motorFL.start_control_loop()
+# Do the same for the other motors
+
 
 IRsensorL = digitalio.DigitalInOut(board.D21)
 IRsensorR = digitalio.DigitalInOut(board.D16)
