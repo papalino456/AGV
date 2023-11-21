@@ -83,6 +83,11 @@ motorFR = Motor(pca, 6, 8, 7,17)
 motorBL = Motor(pca, 5, 3, 4, 22)
 motorBR = Motor(pca, 11, 10, 9, 10)
 
+motorFL.start_speed_measurement()
+motorFR.start_speed_measurement()
+motorBL.start_speed_measurement()
+motorBR.start_speed_measurement()
+
 IRsensorL = digitalio.DigitalInOut(board.D21)
 IRsensorR = digitalio.DigitalInOut(board.D16)
 #IRsensorR2 = digitalio.DigitalInOut(board.D24)
