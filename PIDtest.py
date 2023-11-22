@@ -93,8 +93,9 @@ motorFL.start_control_loop()
 
 while True:
     #5 second tests
-    motorFL.Kp = float(input("Kp: ",motorFL.Kp," new: "))
-    motorFL.Ki = float(input("Ki: ",motorFL.Ki," new: "))
+    print("Kp: ",motorFL.Kp," Ki: ",motorFL.Ki)
+    motorFL.Kp = float(input("new Kp: "))
+    motorFL.Ki = float(input("new Ki: "))
     motorFL.drive(2, 500)
     timeCount = 0
     while timeCount < 5.0:
