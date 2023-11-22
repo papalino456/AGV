@@ -90,7 +90,7 @@ class Motor:
 
 motorFL = Motor(pca, 0, 1, 2,27)
 motorFL.start_control_loop()
-import matplotlib.pyplot as plt
+
 while True:
     #5 second tests
     print("Kp: ",motorFL.Kp," Ki: ",motorFL.Ki)
@@ -98,20 +98,8 @@ while True:
     motorFL.Ki = float(input("new Ki: "))
     motorFL.drive(2, 500)
     timeCount = 0
-    setpoints=[]
-    speeds = []
-    errors = []
     while timeCount < 5.0:
         print("Speed: ", int(motorFL.speed),", Error: ",int(motorFL.error),", SP: ",int(motorFL.setpoint))
-        speeds.append(motorFL.speed)
-        errors.append(motorFL.error)
         timeCount += 0.01
         time.sleep(0.01)
-    # Plot the values
-    for elem in speeds:
-        setpoints.append(500)
-    plt.figure(figsize=(12, 6))
-    plt.plot(speeds, label='Speed')
-    plt.plot(errors, label='Error')
-    plt.legend()
-    plt.savefig('plot.png')
+
