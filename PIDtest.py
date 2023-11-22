@@ -49,9 +49,9 @@ class Motor:
 
     def control_speed(self):
         with self.lock:
-            error = self.setpoint - self.speed
-        self.error_sum += error
-        self.control_value = self.Kp * error + self.Ki * self.error_sum
+            self.error = self.setpoint - self.speed
+        self.error_sum += self.error
+        self.control_value = self.Kp * self.error + self.Ki * self.error_sum
         # Ensure control_value is within 0-0xffff
         self.satcontrol_value = max(0, min(0xffff, int(self.control_value)))
         self.en.duty_cycle = self.satcontrol_value
