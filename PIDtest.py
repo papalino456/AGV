@@ -102,4 +102,5 @@ while True:
         print("Speed: ", int(motorFL.speed),", Error: ",int(motorFL.error),", SP: ",int(motorFL.setpoint))
         timeCount += 0.01
         time.sleep(0.01)
+        
 
