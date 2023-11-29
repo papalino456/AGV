@@ -125,7 +125,14 @@ while True:
         motorFR.drive(1, 30)
         motorBL.drive(2, 30)
         motorBR.drive(1, 30)
-        time.sleep(1.25)
+        time.sleep(0.75)
+        while not valR:  # Keep turning until valR becomes True
+            motorFL.drive(2, 30)
+            motorFR.drive(1, 30)
+            motorBL.drive(2, 30)
+            motorBR.drive(1, 30)
+            time.sleep(0.1)  # You may need to adjust this delay
+            valR = IRsensorR.value  # Update the value of valR
         motorBR.stop()
         motorBL.stop()
         motorFR.stop()
