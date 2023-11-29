@@ -43,7 +43,7 @@ class Motor:
         self.in2.duty_cycle = 0
 
 motorFL = Motor(pca, 0, 1, 2)
-motorFR = Motor(pca, 6, 8, 7)
+motorFR = Motor(pca, 6, 7, 8)
 motorBL = Motor(pca, 5, 3, 4)
 motorBR = Motor(pca, 11, 10, 9)
 
