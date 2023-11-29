@@ -127,7 +127,7 @@ while True:
             motorFR.drive(1, 30)
             motorBL.drive(2, 30)
             motorBR.drive(1, 30)
-            time.sleep(1.2)
+            time.sleep(1.1)
             motorBR.stop()
             motorBL.stop()
             motorFR.stop()
