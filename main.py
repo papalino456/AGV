@@ -75,7 +75,7 @@ while True:
     except RuntimeError:
         dist = 11
         print("nononononono")
-    if dist < 10 and dist > 1 and not valR and not valL:
+    if dist < 2 and dist > 1 and not valR and not valL:
         motorBR.stop()
         motorBL.stop()
         motorFR.stop()
