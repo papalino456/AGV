@@ -17,7 +17,7 @@ count=0
 # Set the PWM frequency to 60hz.
 pca.frequency = 700
 
-USsensor = adafruit_hcsr04.HCSR04(trigger_pin=board.D26, echo_pin=board.D25, timeout=0.06)
+#USsensor = adafruit_hcsr04.HCSR04(trigger_pin=board.D26, echo_pin=board.D25, timeout=0.06)
 #USsensor2 = adafruit_hcsr04.HCSR04(trigger_pin=board.D20, echo_pin=board.D25, timeout=0.06)
 
 class Motor:
@@ -69,6 +69,7 @@ while True:
     valR = IRsensorR.value
     print(valL)
     print(valR)
+    """
     try:
         dist = USsensor.distance
         print(dist)
@@ -81,6 +82,7 @@ while True:
         motorFR.stop()
         motorFL.stop()
         time.sleep(5)
+        """
     if valR and valL is True:
         count += 1
         if count % 2 == 0:
