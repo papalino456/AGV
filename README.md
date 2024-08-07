@@ -1,4 +1,4 @@
-# Line Follower Robot
+# Automatic Guided Vehicle (AGV)
 
 This project implements an automatic guided vehicle robot using a Raspberry Pi Zero W, PCA9685 PWM controller, L298N H-bridges, and four gear motors. The robot is designed to follow a line using IR sensors and can be controlled remotely using a gamepad.
 
